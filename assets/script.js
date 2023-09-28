@@ -17,19 +17,41 @@ const slides = [
 	}
 ];
 
-const bannieres = document.querySelector('.banner-img');
-const flechedroite = document.querySelector('.arrow_right');
-const flechegauche = document.querySelector('.arrow_left');
 
-let currentIndex = 0;
+const arrowright = document.querySelector(".arrow_right");
+const arrowleft = document.querySelector(".arrow_left");
 
-flechedroite.addEventListener('click', function () {
-    currentIndex = (currentIndex + 1) ;
-    updateCarousel(currentIndex, 'right');
+arrowright.addEventListener("click", function () {
+    currentindex = (currentindex + 1) ;
+    navcarrousel(currentindex, "right");
 	console.log ("test arrow")},
 ),
-flechegauche.addEventListener('click', function () {
-    currentIndex = (currentIndex - 1);
-    updateCarousel(currentIndex, 'left');
+arrowleft.addEventListener("click", function () {
+    currentindex = (currentindex - 1);
+    navcarrousel(currentindex, "left");
 	console.log ("test arrow")}
 );
+
+let currentindex = 0;
+const bannerimg = document.querySelector(".banner-img");
+const dots = document.querySelectorAll(".dot");
+
+function navcarrousel(index, direction) {
+	const imagePath = "assets/images/slideshow/${slides[currentindex].image}";
+    bannerimg.src = imagePath;
+    bannerimg.alt = "slide ${currentindex + 1}";
+	const tagLine = slides[currentindex].tagLine;
+	document.querySelector("p").innerHTML = tagLine;
+}
+
+function navdots(index) {
+    dots.forEach((dot, i) => {
+        if (i === index) {
+            dot.classList.add("dot_selected");
+        } else {
+            dot.classList.remove("dot_selected");
+        }
+    });
+}
+
+
