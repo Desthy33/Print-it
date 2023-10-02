@@ -18,6 +18,7 @@ const slides = [
     }
 ];
 
+//Ajout des flèches sur le caroussel
 const arrowright = document.querySelector(".arrow_right");
 const arrowleft = document.querySelector(".arrow_left");
 
@@ -32,15 +33,17 @@ arrowleft.addEventListener("click", function () {
     updateCarousel();
 });
 
+//Ajout bannière et points
 let currentIndex = 0;
 const bannerImg = document.querySelector(".banner-img");
 const dots = document.querySelector(".dots");
 
+//Mise à jour des points sur les images
 function updateDots() {
-    dots.innerHTML='';
+    dots.innerHTML="";
     for(let i=0;i<slides.length;i++){
-        let dot = document.createElement('div');
-        dot.classList.add('dot');
+        let dot = document.createElement("div");
+        dot.classList.add("dot");
         if (i === currentIndex) {
              dot.classList.add("dot_selected");
             }
@@ -48,11 +51,13 @@ function updateDots() {
     }
 }
 
+//Défilement des images sur le carrousel
 function updateCarousel() {
     bannerImg.src =  `./assets/images/slideshow/${slides[currentIndex].image}`;
     bannerImg.alt = `slide ${currentIndex + 1}`;
-    updateDots();M
+    updateDots();
     document.querySelector("p").innerHTML = slides[currentIndex].tagLine;
 }
 
+//Mise à jour des points
 updateDots();
