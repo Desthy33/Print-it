@@ -22,44 +22,37 @@ const arrowright = document.querySelector(".arrow_right");
 const arrowleft = document.querySelector(".arrow_left");
 
 arrowright.addEventListener("click", function () {
-    currentIndex = (currentIndex + 1) ;
-    updateCarousel(currentIndex, "right");
-    updateDots(currentIndex);
+    currentIndex = (currentIndex+1) % slides.length;
+    console.log (currentIndex)
+    updateCarousel();
 });
 arrowleft.addEventListener("click", function () {
     currentIndex = (currentIndex - 1);
-    updateCarousel(currentIndex, "left");
-    updateDots(currentIndex);
+    if (currentIndex <0){currentIndex = slides.length -1}
+    updateCarousel();
 });
 
 let currentIndex = 0;
 const bannerImg = document.querySelector(".banner-img");
-const dots = document.querySelectorAll(".dot");
+const dots = document.querySelector(".dots");
 
-function updateDots(index) {
-    dots.forEach((dot, i) => {
-        if (i === index) {
-            dot.classList.add("dot_selected");
-        } else {
-            dot.classList.remove("dot_selected");
-        }
-    });
-}
-
-function updateCarousel(index, direction) {
-      if (currentIndex === -1 && direction === "left") {
-        currentIndex = slides.length - 1;
-    } else if (currentIndex === slides.length && direction === "right") {
-        currentIndex = 0;
+function updateDots() {
+    dots.innerHTML='';
+    for(let i=0;i<slides.length;i++){
+        let dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (i === currentIndex) {
+             dot.classList.add("dot_selected");
+            }
+        dots.appendChild(dot);
     }
-
-    const imagePath = `./assets/images/slideshow/${slides[currentIndex].image}`;
-    bannerImg.sc = imagePath;
-    bannerImg.alt = `slide ${currentIndex + 1}`;
-
-
-    const tagLine = slides[currentIndex].tagLine;
-    document.querySelector("p").innerHTML = tagLine;
-
-    console.log(`clic ${direction}`);
 }
+
+function updateCarousel() {
+    bannerImg.src =  `./assets/images/slideshow/${slides[currentIndex].image}`;
+    bannerImg.alt = `slide ${currentIndex + 1}`;
+    updateDots();M
+    document.querySelector("p").innerHTML = slides[currentIndex].tagLine;
+}
+
+updateDots();
